@@ -57,13 +57,15 @@ class Adafruit_MQTT_CC3000 : public Adafruit_MQTT {
     // look up IP address
     if (serverip == 0) {
       // Try looking up the website's IP address using CC3K's built in getHostByName
-      strcpy_P((char *)buffer, servername);
-      Serial.print((char *)buffer); Serial.print(F(" -> "));
+      // strcpy_P((char *)buffer, servername);
+      // Serial.print((char *)buffer); Serial.print(F(" -> "));
+      Serial.print(servername); Serial.print(F(" -> "));
       uint8_t dnsretries = 5;
 
       Watchdog.reset();
       while (ip == 0) {
-        if (! cc3000->getHostByName((char *)buffer, &ip)) {
+        // if (! cc3000->getHostByName((char *)buffer, &ip)) {
+        if (! cc3000->getHostByName(servername, &ip)) {
           Serial.println(F("Couldn't resolve!"));
           dnsretries--;
           Watchdog.reset();
